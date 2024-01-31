@@ -1,7 +1,7 @@
 /**
  * 
  */
-package chat1a1.gui;
+package multicast.servidor;
 
 import javax.swing.Icon;
 
@@ -19,19 +19,13 @@ public class Textos {
 	public static final String ERROR = "Error";
 	public static final String SALIR = "Salir";
 	public static final String BTN_ENVIAR = "Enviar";
-	public static final String MSG_PUERTO_LOCAL = "Introduzca el puerto local";
-	public static final String MSG_DIRECCIONES_LOCALES = "Sus direcciones locales son:";
-	public static final String MSG_DIRECCION_REMOTA = "Introduzca la direccion remota";
-	public static final String MSG_PUERTO_REMOTO = "Introduzca el puerto remoto";
-	public static final String TU = "Tu";
 	public static final String ARCHIVO = "Archivo";
 	public static final String ERROR_LEYENDO_CONF = "Error leyendo el archivo de configuracion";
-	public static final String ESTADO = "ESTADO:";
-	public static final String DESCONECTADO = "Desconectado";
-	public static final String ESPERANDO = "Esperando conexion remota";
-	public static final String CONECTADO = "Conectado";
-	public static final String PUERTO_LOCAL = "PUERTO LOCAL";
 	public static final String DIRECCION_REMOTA = "DIRECCION REMOTA";
-	public static final String TITULO = "Chat 1 a 1";
+	public static final Object PEDIR_PUERTO = "Introduzca el puerto a usar";
+	public static final String PUERTO = "PUERTO";
+	public static final String INTERFAZ = "INTERFAZ";
+	public static final String ERROR_CREANDO_SOCKET = "Error creando el socket";
+	public static final String ERROR_ENVIANDO_PAQUETE = "Se ha producido un error enviando el mensaje";
 
 }

@@ -48,6 +48,7 @@ public class Ventana extends JFrame  implements ActionListener{
 	
 	public Ventana() {
 		configuracionDeElementos();
+		this.setTitle(Textos.TITULO);
 		//listener de cierre
 		this.addWindowListener(new WindowAdapter() {
 			
@@ -243,8 +244,10 @@ public class Ventana extends JFrame  implements ActionListener{
 	 */
 	private void enviar() {
 		String msg = entradaTexto.getText();
-		controlador.enviar(msg);
-		agregarMsg(formateaMensaje(msg, Textos.TU,0));
+		if (msg.length()>0) {
+			controlador.enviar(msg);
+			agregarMsg(formateaMensaje(msg, Textos.TU,0));
+		}
 		entradaTexto.setText("");
 		//foco inicial
 		entradaTexto.grabFocus();
