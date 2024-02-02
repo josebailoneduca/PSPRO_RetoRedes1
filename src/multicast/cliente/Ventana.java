@@ -47,6 +47,7 @@ public class Ventana extends JFrame implements ActionListener {
 
 	public Ventana() {
 		configuracionDeElementos();
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		// listener de cierre
 		this.addWindowListener(new WindowAdapter() {
 			@Override

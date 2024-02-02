@@ -49,6 +49,7 @@ public class Ventana extends JFrame  implements ActionListener{
 	public Ventana() {
 		configuracionDeElementos();
 		this.setTitle(Textos.TITULO);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//listener de cierre
 		this.addWindowListener(new WindowAdapter() {
 			
@@ -58,10 +59,11 @@ public class Ventana extends JFrame  implements ActionListener{
 				//foco en la entrada de texto
 				entradaTexto.grabFocus();
 			}
-
+			
+			
 			@Override
 		    public void windowClosing(WindowEvent e) {
-		        controlador.salir();
+		        salir();
 		    }
 		});
 	}
@@ -285,11 +287,13 @@ private void agregarMsg(String msg) {
 	 */
 	public void desactivarEntrada() {
 		btnEnviar.setEnabled(false);
+		entradaTexto.setEnabled(false);
 		
 	}
 	public void activarEntrada() {
 		btnEnviar.setEnabled(true);
-		
+		entradaTexto.setEnabled(true);
+		entradaTexto.grabFocus();
 	}
 
 
@@ -307,7 +311,7 @@ private void agregarMsg(String msg) {
 	public void setEstado(int estado) {
 		switch (estado) {
 		case Conector.EST_DESCONECTADO-> lbEstado.setText(Textos.DESCONECTADO);
-		case Conector.EST_ESPERANDO-> lbEstado.setText(Textos.ESPERANDO);
+		case Conector.EST_ESPERANDO-> {lbEstado.setText(Textos.ESPERANDO);}
 		case Conector.EST_CONECTADO-> lbEstado.setText(Textos.CONECTADO);
 		}
 	}

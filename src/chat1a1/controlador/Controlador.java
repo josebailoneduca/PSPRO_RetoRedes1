@@ -73,10 +73,13 @@ public class Controlador {
 		boolean datosCorrectos = this.conector.configurarConexion(puertoLocal, direccion, puertoRemoto);
 		if (datosCorrectos) {
 			actualizarDatosConexion();
+			vista.desactivarEntrada();
 			conector.negociar();
 			if (!conector.isHablar()) {
 				vista.desactivarEntrada();
 				recibirMensaje();
+			}else {
+				vista.activarEntrada();
 			}
 		} else {
 			vista.msgError(Textos.PUERTO_INVALIDO+":"+puertoLocal);
