@@ -6,8 +6,9 @@ package chat1a1.gui;
 import javax.swing.Icon;
 
 /**
+ * Mensajes y textos usados en la aplicacion
  * 
- * @author Bailon
+ * @author Jose Javier Bailón Ortiz
  */
 public class Textos {
 

@@ -32,35 +32,62 @@ import chat1a1.controlador.Controlador;
 import chat1a1.modelo.Conector;
 
 /**
+ * Interfaz grafica. Se encarga de recoger los mensajes y enviarlos al controlador así
+ * como de mostrar los mensajes recibidos. Tambien muestra los diálogos de introduccion
+ * de los parametros de conexion si el controlador lo solicita.
+ * 
  * 
  * @author Jose Javier Bailon Ortiz
  */
 public class Ventana extends JFrame  implements ActionListener{
-
- 
 	private static final long serialVersionUID = 1L;
-	private Controlador controlador;
-	JTextArea texto ;
-	JButton btnEnviar;
-	JTextField entradaTexto;
-	JLabel lbEstado;
-	JLabel lbConexion;
 	
+	/**
+	 * Referencia al controlador
+	 */
+	private Controlador controlador;
+	
+	/**
+	 * Area donde se mostrara el texto del historial de mensajes
+	 */
+	private JTextArea texto ;
+	
+	/**
+	 * Boton de enviar mensaje
+	 */
+	private JButton btnEnviar;
+	
+	/**
+	 * Campo de introduccion del mensaje a enviar
+	 */
+	private JTextField entradaTexto;
+	
+	/**
+	 * Etiqueta de estado
+	 */
+	private JLabel lbEstado;
+	
+	/**
+	 * Etiqueta de datos de conexion
+	 */
+	private JLabel lbConexion;
+	
+	
+	/**
+	 * Constructor
+	 */
 	public Ventana() {
 		configuracionDeElementos();
 		this.setTitle(Textos.TITULO);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//listener de cierre
+		//listener de cierre de ventana
 		this.addWindowListener(new WindowAdapter() {
-			
 			@Override
 			public void windowOpened(WindowEvent e) {
 				super.windowOpened(e);
 				//foco en la entrada de texto
 				entradaTexto.grabFocus();
 			}
-			
-			
 			@Override
 		    public void windowClosing(WindowEvent e) {
 		        salir();
@@ -68,14 +95,17 @@ public class Ventana extends JFrame  implements ActionListener{
 		});
 	}
 
-
+	/**
+	 * Define la referencia al controlador
+	 * @param controlador
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
 
 
 	/**
-	 * 
+	 * Configura los elementos de la interfaz
 	 */
 	private void configuracionDeElementos() {
 		this.setBounds(0,0,Config.ANCHO_VENTANA,Config.ALTO_VENTANA);
@@ -145,8 +175,7 @@ public class Ventana extends JFrame  implements ActionListener{
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Muestra un mensaje de confirmacion y envia al controlador la orden de terminar
 	 */
 	public void salir() {
 		if (confirmar(Textos.MENSAJE_SALIR))
@@ -181,10 +210,13 @@ public class Ventana extends JFrame  implements ActionListener{
     }
 
 	/**
-	 * 
+	 * Pide la direccion remota con un joptionpane en el que muestra un listado de
+	 *  direcciones ip locales
+	 *
+	 * @param direcionLocal Lista de direcciones locales a mostrar
+	 * @return La direcion introducida
 	 */
 	public String pedirDireccionRemota(List<String> direcionLocal) {
-		//pedir direccion remota
 		String direccion=null;
 		while(direccion==null) {
 			String mensaje= Textos.MSG_DIRECCIONES_LOCALES+"\n "+direcionLocal.stream().collect(Collectors.joining("\n"))+"\n "+Textos.MSG_DIRECCION_REMOTA;
@@ -193,9 +225,13 @@ public class Ventana extends JFrame  implements ActionListener{
 				direccion=null;
 		}
 		return direccion;
-
 	}
 
+	/**
+	 * Pedir el puerto local de escucha
+	 * 
+	 * @return El puerto
+	 */
 	public int pedirPuertoLocal() {
 		return pedirPuerto(Textos.MSG_PUERTO_LOCAL,Config.PUERTO_LOCAL_DEFAULT);
 	}
@@ -206,8 +242,10 @@ public class Ventana extends JFrame  implements ActionListener{
 	
 
 	/**
-	 * @param string
-	 * @return
+	 * Pide un puerto comprobando que la entrada es entre 1 y 65535
+	 * @param msg Mensaje a mostrar
+	 * @param puertoInicial Valor inicial del puerto
+	 * @return El puerto introiducido
 	 */
 	private int pedirPuerto(String msg,int puertoInicial) {
 		int puerto=-1;
@@ -225,7 +263,9 @@ public class Ventana extends JFrame  implements ActionListener{
 
 
 
-
+	/**
+	 * Listener de los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String ac=e.getActionCommand();
@@ -242,7 +282,7 @@ public class Ventana extends JFrame  implements ActionListener{
 
 
 	/**
-	 * @return
+	 * Manda al controlador un mensaje de texto para que lo envie por red
 	 */
 	private void enviar() {
 		String msg = entradaTexto.getText();
@@ -257,20 +297,33 @@ public class Ventana extends JFrame  implements ActionListener{
 
 
 
-private void agregarMsg(String msg) {
-	texto.setText(texto.getText()+msg);
-}
+	/**
+	 * Agrega un mensaje al historial
+	 * 
+	 * @param msg
+	 */
+	private void agregarMsg(String msg) {
+		texto.setText(texto.getText()+msg);
+	}
 
 	/**
-	 * @param datos
-	 * @param puerto 
-	 * @return
+	 * Agrega un mensaje remoto al historial
+	 * @param datos Contenido del mensaje
+	 * @param origen Direccion origen del mensaje
+	 * @param puerto Puerto desde el que se envio
 	 */
 	public void mensajeRecibido(String datos, String origen, int puerto) {
 		agregarMsg(formateaMensaje(datos, origen,puerto));
 	}
 	
-	
+	/**
+	 * Devuelve un string con un formato apto para mostrar en el historial. 
+	 * @param msg Mensaje
+	 * @param origen Direccion origen
+	 * @param puerto Puerto. Si el puerto es 0 no se escribe
+	 * 
+	 * @return El mensaje formateado
+	 */
 	public String formateaMensaje(String msg, String origen, int puerto) {
 		String stPuerto="";
 		if (puerto!=0)
@@ -283,13 +336,18 @@ private void agregarMsg(String msg) {
 
 
 	/**
-	 * 
+	 *  Desactiva los controles de entrada de mensajes
 	 */
 	public void desactivarEntrada() {
 		btnEnviar.setEnabled(false);
 		entradaTexto.setEnabled(false);
 		
 	}
+	
+	/**
+	 * Activa los controles de entrada del mensaje y pone el foco
+	 * en el campo de introduccion de mensajes
+	 */
 	public void activarEntrada() {
 		btnEnviar.setEnabled(true);
 		entradaTexto.setEnabled(true);
@@ -298,9 +356,11 @@ private void agregarMsg(String msg) {
 
 
 	/**
-	 * @param puertoLocal
-	 * @param direccionRemota
-	 * @param puertoRemoto
+	 * Muestra en la interfaz los datos de conexion
+	 * 
+	 * @param puertoLocal El puerto en el que escucha el programa
+	 * @param direccionRemota Direccion remota con la que esta conectada
+	 * @param puertoRemoto Puerto remoto con el que esta conectado
 	 */
 	public void setDatosConexion(int puertoLocal, String direccionRemota, int puertoRemoto) {
 		String stConexion= String.format(Textos.PUERTO_LOCAL+": %d      "+Textos.DIRECCION_REMOTA+":%s:%d", puertoLocal,direccionRemota,puertoRemoto);
@@ -308,6 +368,11 @@ private void agregarMsg(String msg) {
 	}
 	
 	
+	/**
+	 * Define el estado del sistema 
+	 * 
+	 * @param estado Numero referente al tipo de estado
+	 */
 	public void setEstado(int estado) {
 		switch (estado) {
 		case Conector.EST_DESCONECTADO-> lbEstado.setText(Textos.DESCONECTADO);
