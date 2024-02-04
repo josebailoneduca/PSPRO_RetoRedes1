@@ -11,10 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -30,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
+ * Interfaz grafica de la aplicacion de cliente multicast
  * 
  * @author Jose Javier Bailon Ortiz
  */
@@ -65,6 +63,7 @@ public class Ventana extends JFrame implements ActionListener {
 	 * 
 	 */
 	private void configuracionDeElementos() {
+		this.setTitle(Textos.TITULO_CLIENTE);
 		this.setBounds(0, 0, Config.ANCHO_VENTANA, Config.ALTO_VENTANA);
 		this.setLayout(new BorderLayout());
 		// MENU

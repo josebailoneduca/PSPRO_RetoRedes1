@@ -89,39 +89,6 @@ public class Controlador {
 	}
 
 	/**
-	 * Pide los datos de conexion a traves de la vista
-	 * 
-	 * @param listaInterfaces
-	 */
-	private void pedirDatosConexion() {
-
-		puertoLocal = vista.pedirPuertoLocal();
-		direccionRemota = vista.pedirDireccionRemota(conector.getListaInterfaces());
-		puertoRemoto = vista.pedirPuertoRemoto();
-	}
-
-	/**
-	 * Carga los datos de conexion desde el archivo de configuracion. Si no puede
-	 * lanza la peticion de los parámetros al usuario
-	 */
-	private void cargarConfiguracion() {
-		File archConf = null;
-		try {
-			archConf = new File(rutaConf);
-			FileReader r = new FileReader(archConf);
-			Properties prop = new Properties();
-			prop.load(r);
-			puertoLocal = Integer.parseInt((String) prop.get("puerto_local"));
-			direccionRemota = (String) prop.get("direccion_remota");
-			puertoRemoto = Integer.parseInt((String) prop.get("puerto_remoto"));
-		} catch (IOException | NumberFormatException e) {
-			//si ha habido algún error se avisa al usuario y se piden los datos de conexion
-			vista.msgError(Textos.ERROR_LEYENDO_CONF + ":" + archConf.getAbsolutePath());
-			pedirDatosConexion();
-		}
-	}
-
-	/**
 	 * Configura los datos de conexión en el conector e inicia la negociacion.
 	 * 
 	 * @param puertoLocal Puerto local para la conexion
@@ -149,29 +116,6 @@ public class Controlador {
 			vista.msgError(Textos.PUERTO_INVALIDO + ":" + puertoLocal);
 			pedirDatosConexion();
 		}
-	}
-
-	/**
-	 * Actualiza la vista con los datos de conexion actuales
-	 */
-	private void actualizarDatosConexion() {
-		int puertoLocal = conector.getPuertoLocal();
-		String direccionRemota = conector.getDireccionRemota();
-		int puertoRemoto = conector.getPuertoRemoto();
-		vista.setDatosConexion(puertoLocal, direccionRemota, puertoRemoto);
-	}
-
-	/**
-	 *  Inicia la recepción de un mensaje
-	 */
-	private void recibirMensaje() {
-		//poner el conector a escuchar 
-		String msg = conector.recibir();
-		//mostrar mensaje recibido y activar interfaz para que se pueda escribir
-		if (msg != null) {
-			vista.mensajeRecibido(msg, conector.getDireccionRemota(), conector.getPuertoRemoto());
-		}
-		vista.activarEntrada();
 	}
 
 	/**
@@ -212,6 +156,62 @@ public class Controlador {
 	 */
 	public void mostrarEstado(int estado) {
 		vista.setEstado(estado);
+	}
+
+	/**
+	 * Pide los datos de conexion a traves de la vista
+	 * 
+	 * @param listaInterfaces
+	 */
+	private void pedirDatosConexion() {
+	
+		puertoLocal = vista.pedirPuertoLocal();
+		direccionRemota = vista.pedirDireccionRemota(conector.getListaInterfaces());
+		puertoRemoto = vista.pedirPuertoRemoto();
+	}
+
+	/**
+	 * Carga los datos de conexion desde el archivo de configuracion. Si no puede
+	 * lanza la peticion de los parámetros al usuario
+	 */
+	private void cargarConfiguracion() {
+		File archConf = null;
+		try {
+			archConf = new File(rutaConf);
+			FileReader r = new FileReader(archConf);
+			Properties prop = new Properties();
+			prop.load(r);
+			puertoLocal = Integer.parseInt((String) prop.get("puerto_local"));
+			direccionRemota = (String) prop.get("direccion_remota");
+			puertoRemoto = Integer.parseInt((String) prop.get("puerto_remoto"));
+		} catch (IOException | NumberFormatException e) {
+			//si ha habido algún error se avisa al usuario y se piden los datos de conexion
+			vista.msgError(Textos.ERROR_LEYENDO_CONF + ":" + archConf.getAbsolutePath());
+			pedirDatosConexion();
+		}
+	}
+
+	/**
+	 * Actualiza la vista con los datos de conexion actuales
+	 */
+	private void actualizarDatosConexion() {
+		int puertoLocal = conector.getPuertoLocal();
+		String direccionRemota = conector.getDireccionRemota();
+		int puertoRemoto = conector.getPuertoRemoto();
+		vista.setDatosConexion(puertoLocal, direccionRemota, puertoRemoto);
+	}
+
+	/**
+	 *  Inicia la recepción de un mensaje
+	 */
+	private void recibirMensaje() {
+		//poner el conector a escuchar 
+		String msg = conector.recibir();
+		//mostrar mensaje recibido y activar interfaz para que se pueda escribir
+		if (msg != null) {
+			vista.mensajeRecibido(msg, conector.getDireccionRemota(), conector.getPuertoRemoto());
+		}
+		vista.activarEntrada();
 	}
 
 }

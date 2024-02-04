@@ -11,9 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,19 +32,37 @@ import javax.swing.JTextField;
 public class Ventana extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Referencia al controlador
+	 */
 	private Servidor servidor;
-	JTextField entradaTexto;
-	JButton btnEnviar;
+
+	/**
+	 * Campo de entrada de los mensajes
+	 */
+	private JTextField entradaTexto;
+
+	/**
+	 * Boton de enviar mensaje
+	 */
+	private JButton btnEnviar;
+
+	/**
+	 * Etiqueta que muestra el puerto usado
+	 */
 	private JLabel lbPuerto;
 
-	JTextArea texto;
-
-	private JLabel lbInterfaz;
+	/**
+	 * area de texto en la que mostrar el historial de mensajes enviados
+	 */
+	private JTextArea texto;
 
 	public Ventana() {
 		configuracionDeElementos();
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		// listener de cierre
+
+		// listener de ventana
 		this.addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -64,12 +79,17 @@ public class Ventana extends JFrame implements ActionListener {
 		});
 	}
 
+	/**
+	 * Define la referencia al servidor
+	 * 
+	 * @param servidor El servidor
+	 */
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
 	}
 
 	/**
-	 * 
+	 * Configura los elementos de la interfaz
 	 */
 	private void configuracionDeElementos() {
 		this.setBounds(0, 0, Config.ANCHO_VENTANA, Config.ALTO_VENTANA);
@@ -116,8 +136,6 @@ public class Ventana extends JFrame implements ActionListener {
 		filaEstado.add(Box.createRigidArea(new Dimension(5, 0)));
 		filaEstado.add(lbPuerto);
 
-
-
 		// montar panel inferior
 		JPanel panelInferior = new JPanel();
 		GridLayout gLayout = new GridLayout(2, 1);
@@ -134,8 +152,7 @@ public class Ventana extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Ordena a servidor terminar el programa tras una confirmacion
 	 */
 	public void salir() {
 		if (confirmar(Textos.MENSAJE_SALIR))
@@ -172,8 +189,9 @@ public class Ventana extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * @param string
-	 * @return
+	 * Pide un puerto
+	 * 
+	 * @return El puerto introducido
 	 */
 	public int pedirPuerto() {
 		int puerto = -1;
@@ -188,6 +206,9 @@ public class Ventana extends JFrame implements ActionListener {
 		return puerto;
 	}
 
+	/**
+	 * Escucha de los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String ac = e.getActionCommand();
@@ -200,46 +221,45 @@ public class Ventana extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * @return
+	 * Ordena a servidor enviar el mensaje que hay en la caja de texto si tiene
+	 * contenido
 	 */
 	private void enviar() {
 		String msg = entradaTexto.getText();
-		if (msg.length()>0) {
+		if (msg.length() > 0) {
 			servidor.enviar(msg);
 			agregarMsg(formateaMensaje(msg));
 		}
-		
+
 		entradaTexto.setText("");
 		// foco inicial
 		entradaTexto.grabFocus();
 	}
 
+	
+	/**
+	 * Agrega un mensaje al historial
+	 * @param msg El mensaje
+	 */
 	private void agregarMsg(String msg) {
 		texto.setText(texto.getText() + msg);
 	}
 
+	/**
+	 * Formatea un mensaje
+	 * @param msg El mensaje a formatear
+	 * @return El mensaje formateado
+	 */
 	public String formateaMensaje(String msg) {
 		Date d = new Date();
 		return d.toString() + "\n" + msg + "\n\n";
 	}
+ 
 
 	/**
+	 * Actualiza la etiqueta de puerto actual
 	 * 
-	 */
-	public void desactivarEntrada() {
-		btnEnviar.setEnabled(false);
-
-	}
-
-	public void activarEntrada() {
-		btnEnviar.setEnabled(true);
-
-	}
-
-	/**
-	 * @param puertoLocal
-	 * @param direccionRemota
-	 * @param puertoRemoto
+	 * @param puerto El puerto usado
 	 */
 	public void setDatosConexion(int puerto) {
 		lbPuerto.setText("" + puerto);
