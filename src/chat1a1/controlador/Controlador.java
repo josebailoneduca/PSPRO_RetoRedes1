@@ -21,10 +21,6 @@ import chat1a1.modelo.Conector;
  */
 public class Controlador {
 
-	/**
-	 * almacena el estado de si puede enviar o no
-	 */
-	private boolean puedeEnviar = true;
 
 	/**
 	 * Referencia al conector (modelo) que se encargara de hacer la comunicacion por
