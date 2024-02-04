@@ -20,5 +20,6 @@ public class Textos {
 	public static final String PUERTO = "PUERTO";
 	public static final String ERROR_CREANDO_SOCKET = "Error creando el socket";
 	public static final String ERROR_ENVIANDO_PAQUETE = "Se ha producido un error enviando el mensaje";
+	public static final String TITULO_SERVIDOR = "Servidor de mensajes multicast";
 
 }

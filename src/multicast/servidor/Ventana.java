@@ -92,6 +92,7 @@ public class Ventana extends JFrame implements ActionListener {
 	 * Configura los elementos de la interfaz
 	 */
 	private void configuracionDeElementos() {
+		this.setTitle(Textos.TITULO_SERVIDOR);
 		this.setBounds(0, 0, Config.ANCHO_VENTANA, Config.ALTO_VENTANA);
 		this.setLayout(new BorderLayout());
 		// MENU
