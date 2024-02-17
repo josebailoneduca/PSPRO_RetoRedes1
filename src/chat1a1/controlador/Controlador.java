@@ -125,7 +125,8 @@ public class Controlador {
 
 	/**
 	 * Envía un mensaje e inicia un hilo para recibir un mensaje
-	 * @param string El mensaje a enviar
+	 * 
+	 * @param mensaje El mensaje a enviar
 	 */
 	public void enviar(String mensaje) {
 		conector.enviar(mensaje);
@@ -157,8 +158,7 @@ public class Controlador {
 	/**
 	 * Pide los datos de conexion a traves de la vista
 	 * 
-	 * @param listaInterfaces
-	 */
+	 * */
 	private void pedirDatosConexion() {
 	
 		puertoLocal = vista.pedirPuertoLocal();

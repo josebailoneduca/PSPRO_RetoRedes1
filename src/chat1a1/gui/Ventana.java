@@ -40,6 +40,10 @@ import chat1a1.modelo.Conector;
  * @author Jose Javier Bailon Ortiz
  */
 public class Ventana extends JFrame  implements ActionListener{
+	
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -97,7 +101,7 @@ public class Ventana extends JFrame  implements ActionListener{
 
 	/**
 	 * Define la referencia al controlador
-	 * @param controlador
+	 * @param controlador Define el controlador
 	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -147,6 +151,11 @@ public class Ventana extends JFrame  implements ActionListener{
 		return pedirPuerto(Textos.MSG_PUERTO_LOCAL,Config.PUERTO_LOCAL_DEFAULT);
 	}
 	
+	/**
+	 * Pedir el puerto remoto
+	 * 
+	 * @return El puerto
+	 */
 	public int pedirPuertoRemoto() {
 		return pedirPuerto(Textos.MSG_PUERTO_REMOTO,Config.PUERTO_REMOTO_DEFAULT);
 	}
@@ -339,7 +348,7 @@ public class Ventana extends JFrame  implements ActionListener{
 	/**
 	 * Agrega un mensaje al historial
 	 * 
-	 * @param msg
+	 * @param msg El mensaje
 	 */
 	private void agregarMsg(String msg) {
 		texto.setText(texto.getText()+msg);

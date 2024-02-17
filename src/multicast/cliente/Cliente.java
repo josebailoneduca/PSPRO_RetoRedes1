@@ -77,6 +77,7 @@ public class Cliente {
 		super();
 		this.vista = v;
 		this.vista.setServidor(this);
+		this.rutaConf=rutaConf;
 	}
 
 	/**

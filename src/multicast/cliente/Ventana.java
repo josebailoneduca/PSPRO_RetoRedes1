@@ -31,6 +31,9 @@ import javax.swing.JTextArea;
  */
 public class Ventana extends JFrame implements ActionListener {
 
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -129,7 +132,11 @@ public class Ventana extends JFrame implements ActionListener {
 	}
 
 
-
+	/**
+	 * Agrega un mensaje a la ventana
+	 * 
+	 * @param msg El menasaje
+	 */
 	public void agregarMsg(String msg) {
 		texto.setText(texto.getText()+formateaMensaje(msg));
 	}

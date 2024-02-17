@@ -44,10 +44,16 @@ public class Servidor {
 	 */
 	private MulticastSocket mulSoc;
 
+	/**
+	 * Constructor
+	 * @param v Referencia a la vista
+	 * @param rutaConf Ruta desde la que cargar la configuracion
+	 */
 	public Servidor(Ventana v, String rutaConf) {
 		super();
 		this.vista = v;
 		this.vista.setServidor(this);
+		this.rutaConf=rutaConf;
 	}
 
 	/**

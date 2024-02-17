@@ -7,12 +7,17 @@ import multicast.cliente.Cliente;
 import multicast.cliente.Ventana;
 
 /**
+ * Main del cliente multicast
  * 
  * @author Jose Javier Bailon Ortiz
  */
 public class MainCliente {
 	
 	
+	/**
+	 * Main
+	 * @param args Ruta del archivo de configuracion
+	 */
 	public static void main(String[] args) {
 		
 	String archivoConf=null;

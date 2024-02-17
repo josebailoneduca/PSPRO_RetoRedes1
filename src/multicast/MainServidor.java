@@ -7,12 +7,16 @@ import multicast.servidor.Servidor;
 import multicast.servidor.Ventana;
 
 /**
- * 
+ *  Main del servidor de multicast
  * @author Jose Javier Bailon Ortiz
  */
 public class MainServidor {
 	
 	
+	/**
+	 * Main de la aplciacion
+	 * @param args Ruta del archivo de configuracion
+	 */
 	public static void main(String[] args) {
 		
 	String archivoConf=null;

@@ -218,7 +218,7 @@ public class Conector {
 	/**
 	 * Devuelve el puerto local del socket
 	 * 
-	 * @return
+	 * @return El puerto local del socket
 	 */
 	public int getPuertoLocal() {
 		return socketLocal.getLocalPort();
@@ -227,7 +227,7 @@ public class Conector {
 	/**
 	 * Devuelve si es el turno de hablar
 	 * 
-	 * @return
+	 * @return True si es el turno de hablar false si no lo es
 	 */
 	public boolean isHablar() {
 		return hablar;

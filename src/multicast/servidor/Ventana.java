@@ -26,11 +26,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * 
+ *  Vista del servidor multicast 
  * @author Jose Javier Bailon Ortiz
  */
 public class Ventana extends JFrame implements ActionListener {
 
+	/**
+	 * serial
+	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -58,6 +61,9 @@ public class Ventana extends JFrame implements ActionListener {
 	 */
 	private JTextArea texto;
 
+	/**
+	 * Constructor
+	 */
 	public Ventana() {
 		configuracionDeElementos();
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
